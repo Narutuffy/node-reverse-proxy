@@ -1,0 +1,23 @@
+{
+  "name": "reverse-proxy",
+  "version": "1.0.0",
+  "description": "Reverse proxy using http/s modules of node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narutuffy/node-reverse-proxy.git"
+  },
+  "author": "Vamsi Settypalli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Narutuffy/node-reverse-proxy/issues"
+  },
+  "homepage": "https://github.com/Narutuffy/node-reverse-proxy#readme",
+  "dependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

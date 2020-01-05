@@ -1,0 +1,21 @@
+{
+  "name" : "node-proxy",
+  "script" : "app.js",
+  "cwd" : "/home/deploy/workspace/node",
+  "env": {
+    "PORT": 5000,
+    "NODE_PATH": "."
+  },
+  "interpreter": "node",
+  "watch": false,
+  "exec_mode": "cluster",
+  "instances": 2,
+  "instance_var": "INSTANCE_ID",
+  "max_memory_restart": "500M",
+  "out_file": "logs/app-stdout.log",
+  "error_file": "logs/app-stderr.log",
+  "combine_logs": true,
+  "max_restarts": 2000,
+  "restart_delay": 10000,
+  "autorestart": true
+}
