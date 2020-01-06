@@ -14,7 +14,7 @@ http.createServer(function (clientReq, clientRes) {
 
   var proxy = http.request(options, function (res) {
     clientRes.writeHead(res.statusCode, res.headers);
-    console.log(clientRes);
+    // console.log(clientRes);
     res.pipe(clientRes, {
       end: true
     });
