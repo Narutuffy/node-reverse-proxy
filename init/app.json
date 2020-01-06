@@ -1,9 +1,9 @@
 {
   "name" : "node-proxy",
   "script" : "app.js",
-  "cwd" : "/home/deploy/workspace/node",
+  "cwd" : "/home/ubuntu/workspace/node-reverse-proxy",
   "env": {
-    "PORT": 5000,
+    "PORT": 8888,
     "NODE_PATH": "."
   },
   "interpreter": "node",
