@@ -1,29 +1,40 @@
-var http = require('http');
+var http = require("http");
+var https = require("https");
 var port = 8888;
+var proxy;
 
-http.createServer(function (clientReq, clientRes) {
-  console.log('serve: ' + clientReq.url);
-
+http.createServer(function(clientReq, clientRes) {
+  console.log("serve: " + clientReq.url);
+  delete clientReq.headers.host;
   var options = {
-    hostname: '104.22.9.217',
+    host: "planokay.com",
     port: 80,
     path: clientReq.url,
     method: clientReq.method,
     headers: clientReq.headers
   };
-
-  var proxy = http.request(options, function (res) {
-    clientRes.writeHead(res.statusCode, res.headers);
-    // console.log(clientRes);
-    res.pipe(clientRes, {
-      end: true
+  console.log("clientReq.conn ====>", clientReq.connection.encrypted);
+  if (clientReq.connection.encrypted) {
+    proxy = https.request(options, function(res) {
+      clientRes.writeHead(res.statusCode, res.headers);
+      res.pipe(clientRes, {
+        end: true
+      });
     });
-  });
+  } else {
+    proxy = http.request(options, function(res) {
+      clientRes.writeHead(res.statusCode, res.headers);
+      res.pipe(clientRes, {
+        end: true
+      });
+    });
+  }
 
   clientReq.pipe(proxy, {
     end: true
   });
-}).listen(port);
+})
+.listen(port);
 
 // /////////////////////////////////
 // Proxy using request module
