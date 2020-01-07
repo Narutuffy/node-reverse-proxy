@@ -1,5 +1,6 @@
 var http = require("http");
 var https = require("https");
+var hostMap = require("./hostMap.json");
 var port = 8888;
 var proxy;
 
@@ -38,14 +39,8 @@ http.createServer(function(clientReq, clientRes) {
 .listen(port);
 
 function routeToRequiredHost(host) {
-  console.log(host);
-  if(host === "foo.planokay.com") {
-    return "planokay.com"
-  } else if(host === "bar.planokay.com") {
-    return "vamsi.hashnode.dev"
-  } else if(host === "baz.planokay.com") {
-    return "httpbin.org"
-  }
+  console.log( hostMap[host]);
+  return hostMap[host];
 }
 
 // /////////////////////////////////
