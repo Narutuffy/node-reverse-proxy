@@ -39,7 +39,13 @@ http.createServer(function(clientReq, clientRes) {
 
 function routeToRequiredHost(host) {
   console.log(host);
-  return 'planokay.com';
+  if(host === "foo.planokay.com") {
+    return "planokay.com"
+  } else if(host === "bar.planokay.com") {
+    return "vamsi.hashnode.dev"
+  } else if(host === "baz.planokay.com") {
+    return "httpbin.org"
+  }
 }
 
 // /////////////////////////////////
