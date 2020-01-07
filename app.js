@@ -11,27 +11,18 @@ http
     delete clientReq.headers.host;
     var options = {
       host: routeToRequiredHost(host),
-      port: 80,
+      port: routePort(host),
       path: clientReq.url,
       method: clientReq.method,
       headers: clientReq.headers
     };
 
-    if (clientReq.connection.encrypted) {
-      proxy = https.request(options, function(res) {
-        clientRes.writeHead(res.statusCode, res.headers);
-        res.pipe(clientRes, {
-          end: true
-        });
+    proxy = http.request(options, function(res) {
+      clientRes.writeHead(res.statusCode, res.headers);
+      res.pipe(clientRes, {
+        end: true
       });
-    } else {
-      proxy = http.request(options, function(res) {
-        clientRes.writeHead(res.statusCode, res.headers);
-        res.pipe(clientRes, {
-          end: true
-        });
-      });
-    }
+    });
 
     clientReq.pipe(proxy, {
       end: true
@@ -40,5 +31,9 @@ http
   .listen(port);
 
 function routeToRequiredHost(host) {
-  return hostMap[host];
+  return hostMap[host].host;
+}
+
+function routePort(host) {
+  return hostMap[host].port
 }
