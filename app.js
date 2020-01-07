@@ -1,6 +1,7 @@
 var http = require("http");
 var https = require("https");
 var hostMap = require("./hostMap.json");
+var url = require("url");
 var port = 8888;
 var proxy;
 
@@ -17,12 +18,21 @@ http
       headers: clientReq.headers
     };
 
-    proxy = http.request(options, function(res) {
-      clientRes.writeHead(res.statusCode, res.headers);
-      res.pipe(clientRes, {
-        end: true
+    if (routePort(host) === 443) {
+      proxy = https.request(options, function(res) {
+        clientRes.writeHead(res.statusCode, res.headers);
+        res.pipe(clientRes, {
+          end: true
+        });
       });
-    });
+    } else {
+      proxy = http.request(options, function(res) {
+        clientRes.writeHead(res.statusCode, res.headers);
+        res.pipe(clientRes, {
+          end: true
+        });
+      });
+    }
 
     clientReq.pipe(proxy, {
       end: true
@@ -31,9 +41,9 @@ http
   .listen(port);
 
 function routeToRequiredHost(host) {
-  return hostMap[host].host;
+  return hostMap[host];
 }
 
 function routePort(host) {
-  return hostMap[host].port
+  return (url.parse(host).protocol = "https" ? 443 : 80);
 }

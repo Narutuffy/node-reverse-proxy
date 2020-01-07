@@ -1,14 +1,11 @@
 {
   "foo.planokay.com": {
-    "port": 80,
-    "host":"planokay.com"
+    "host":"http://planokay.com"
   },
   "bar.planokay.com": {
-    "port": 443,
-    "host": "vamsi.hashnode.dev"
+    "host": "https://vamsi.hashnode.dev"
   },
   "baz.planokay.com": {
-    "port": 443,
-    "host":"httpbin.org"
+    "host":"https://httpbin.org"
   } 
 }
