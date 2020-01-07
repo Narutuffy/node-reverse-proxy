@@ -5,9 +5,10 @@ var proxy;
 
 http.createServer(function(clientReq, clientRes) {
   console.log("serve: " + clientReq.url);
+  var host = clientReq.headers.host;
   delete clientReq.headers.host;
   var options = {
-    host: "planokay.com",
+    host: routeToRequiredHost(host),
     port: 80,
     path: clientReq.url,
     method: clientReq.method,
@@ -35,6 +36,11 @@ http.createServer(function(clientReq, clientRes) {
   });
 })
 .listen(port);
+
+function routeToRequiredHost(host) {
+  console.log(host);
+  return 'planokay.com';
+}
 
 // /////////////////////////////////
 // Proxy using request module
